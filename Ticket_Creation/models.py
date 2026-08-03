@@ -20,6 +20,6 @@ class Ticket(models.Model):
     Raised_At = models.DateField(auto_now=True) #
     Short_Description = models.TextField(max_length=30)
     Complete_Description = models.TextField(max_length=100)
-    Ticket_Status = models.CharField(max_length=20,choices=Status)
+    Ticket_Status = models.CharField(max_length=20,choices=Status,default="NEW")
     User_Contact = models.CharField(max_length=12)
     Issue_Category = models.CharField(max_length=20,choices=Issue_Type)

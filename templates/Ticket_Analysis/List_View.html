@@ -6,21 +6,39 @@
     <title>Dynamic Tickets List View</title>
 </head>
 <body>
-    {% if Ticket_obj %}
-        <table>
+    <h1>This is the Tickets Page</h1>
+    {% if tickets %}
+        <table border="solid">
             <thead>
-                <th>{{Ticket_obj.Ticket_Number}}</th>
-                <th>{{Ticket_obj.Issue_Category}}</th>
-                <th>{{Ticket_obj.Raised_By}}</th>
-                <th>{{Ticket_obj.Raised_At}}</th>
-                <th>{{Ticket_obj.Short_Description}}</th>
-                <th>{{Ticket_obj.Complete_Description}}</th>
-                <th>{{Ticket_obj.Ticket_Status}}</th>
-                <th>{{Ticket_obj.User_Contact}}</th>
+                <tr>
+                    <th>Ticket Number</th>
+                    <th>Issue Issue Category</th>
+                    <th>Raised By</th>
+                    <th>Raised At</th>
+                    <th>Issue Details</th>
+                    <th>Ticket Status</th>
+                    <th>User Contact Details</th>
+
+                </tr>
             </thead>
+                 
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                <th>{{ticket.Ticket_Number}}</th>
+                <th>{{ticket.Issue_Category}}</th>
+                <th>{{ticket.Raised_By}}</th>
+                <th>{{ticket.Raised_At}}</th>
+                <th>{{ticket.Short_Description}}</th>
+                <th>{{ticket.Ticket_Status}}</th>
+                <th>{{ticket.User_Contact}}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     {% else %}
         <h1>There are No Tickets Present in the System at the moment</h1>
     {%endif%}
+
 </body>
 </html>
