@@ -1,39 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detailed Ticket View</title>
-</head>
-<body>
-    {% if ticket %}
-    <table border="solid">
-            <thead>
-                <tr>
-                    <th>Ticket Number</th>
-                    <th>Issue Issue Category</th>
-                    <th>Raised By</th>
-                    <th>Raised At</th>
-                    <th>Issue Details</th>
-                    <th>Ticket Status</th>
-                    <th>User Contact Details</th>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detailed View {{ticket.Ticket_Number}}</title>
+    <style>
+        .main{
+            display: flex;
+            justify-content: space-around;
+        }
+        .left{
+            display: inline;
+            border: 2px soild white;
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <th><a href="update/{{ticket.Ticket_Number}}">{{ticket.Ticket_Number}}</a></th>
-                <th>{{ticket.Issue_Category}}</th>
-                <th>{{ticket.Raised_By}}</th>
-                <th>{{ticket.Raised_At}}</th>
-                <th>{{ticket.Short_Description}}</th>
-                <th>{{ticket.Ticket_Status}}</th>
-                <th>{{ticket.User_Contact}}</th>
-                </tr>
-            </tbody>
-        </table>
+        }
+        p{
+            border: 2px solid white;
+            width: fit-content;
+            padding: 5px;
+            border-radius: 2px;
+        }
+    </style>
+  </head>
+  <body>
+{% if ticket %}
+    <div class="main">
+      <div class="left">
+        <p>{{ticket.Ticket_Number}}</p>
+        <p>{{ticket.Issue_Category}}</p>
+        <p>{{ticket.Short_Description}}</p>
+        <p>{{ticket.Complete_Description}}</p>
+      </div>
+
+      <div class="right">
+        <p>{{ticket.Ticket_Status}}</p>
+        <p>{{ticket.User_Contact}}</p>
+        <p>{{ticket.Raised_By}}</p>
+        <p>{{ticket.Raised_At}}</p>
+      </div>
+    </div>
     {% else %}
-        <h1>Invalid Item</h1>
+    <h1>Invalid Item</h1>
     {%endif%}
-</body>
+
+  </body>
 </html>

@@ -11,9 +11,15 @@ def Tickets_Working(request):
     return render(request,'Ticket_Analysis/List_View.html',{"tickets":tickets})
 
 # this is where users should be able to work on the ticket and close/add notes to the ticket
+
+"""
+Requirements of this Function
+1.Change the Status of the Ticket from NEW to CLOSED,IN_PROGRESS,RESOLVED etc depending on the situation
+2.Add Notes that would be displayed when the ticket is searched
+"""
 def Detailed_View(request,ticket_number):
-        ticket = get_object_or_404(
-            Ticket,
-            Ticket_Number=ticket_number
-        )
-        return render(request,'Ticket_Analysis/Detail_View.html',{"ticket":ticket})     
+    ticket = get_object_or_404(
+        Ticket,
+        Ticket_Number=ticket_number
+    )
+    return render(request,'Ticket_Analysis/Detail_View.html',{"ticket":ticket})     
