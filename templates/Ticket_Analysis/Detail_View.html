@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Tickets List View</title>
+    <title>Detailed Ticket View</title>
 </head>
 <body>
-    <h1>This is the Tickets Page</h1>
-    {% if tickets %}
-        <table border="solid">
+    {% if ticket %}
+    <table border="solid">
             <thead>
                 <tr>
                     <th>Ticket Number</th>
@@ -21,11 +20,9 @@
 
                 </tr>
             </thead>
-                 
             <tbody>
-                {% for ticket in tickets %}
                 <tr>
-                <th><a href="{% url 'detailed_view' ticket.Ticket_Number %}">{{ticket.Ticket_Number}}</a></th>
+                <th><a href="update/{{ticket.Ticket_Number}}">{{ticket.Ticket_Number}}</a></th>
                 <th>{{ticket.Issue_Category}}</th>
                 <th>{{ticket.Raised_By}}</th>
                 <th>{{ticket.Raised_At}}</th>
@@ -33,12 +30,10 @@
                 <th>{{ticket.Ticket_Status}}</th>
                 <th>{{ticket.User_Contact}}</th>
                 </tr>
-                {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <h1>There are No Tickets Present in the System at the moment</h1>
+        <h1>Invalid Item</h1>
     {%endif%}
-
 </body>
 </html>

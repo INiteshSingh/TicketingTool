@@ -3,6 +3,10 @@ from tools import Tic_Gen
 from .forms import TicketForm
 from .models import Ticket
 #To Print the Form data and then print the data into the terminal
+
+def home_page(request):
+    return render(request,"Ticket_Creation/homepage.html")
+
 def ticket_form(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
