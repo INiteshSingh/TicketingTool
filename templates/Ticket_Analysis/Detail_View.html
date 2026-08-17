@@ -24,6 +24,7 @@
   </head>
   <body>
 {% if ticket %}
+    <h1>Detailed View {{ticket.Ticket_Number}} </h1>
     <div class="main">
       <div class="left">
         <p>{{ticket.Ticket_Number}}</p>
@@ -39,6 +40,19 @@
         <p>{{ticket.Raised_At}}</p>
       </div>
     </div>
+
+    <h1>Update</h1>
+
+    <form method="post">
+        {%csrf_token%}
+
+        {{form.Ticket_Status}}
+
+        {{form.Working_Notes}}
+         
+        <button type="submit">Update Ticket</button>
+    </form>
+
     {% else %}
     <h1>Invalid Item</h1>
     {%endif%}

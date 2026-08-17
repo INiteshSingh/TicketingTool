@@ -1,5 +1,6 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from Ticket_Creation.models import Ticket
+from . import forms
 #View for a list dispaly for the raised tickets
 def Ticket_Display(request):
     tickets = Ticket.objects.all()
@@ -15,11 +16,24 @@ def Tickets_Working(request):
 """
 Requirements of this Function
 1.Change the Status of the Ticket from NEW to CLOSED,IN_PROGRESS,RESOLVED etc depending on the situation
+    For the Change to be made of the status Using a form as it allows for Adding the Data to the 
+    notes
+
 2.Add Notes that would be displayed when the ticket is searched
 """
 def Detailed_View(request,ticket_number):
+
     ticket = get_object_or_404(
         Ticket,
         Ticket_Number=ticket_number
     )
-    return render(request,'Ticket_Analysis/Detail_View.html',{"ticket":ticket})     
+
+    if request.method == "POST":
+
+        form = forms.UpdateForm(request.POST,instance=ticket)
+        if form.is_valid():
+            form.save()
+            return redirect("detailed_view",ticket_number=ticket_number)
+    else:
+        form = forms.UpdateForm(instance=ticket)
+    return render(request,'Ticket_Analysis/Detail_View.html',{"ticket":ticket,"form":form})     
