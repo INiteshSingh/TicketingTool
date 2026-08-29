@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Ticket_Creation',
-    'Ticket_Analysis'
+    'Ticket_Analysis',
+    'User_Management'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTH_USER_MODEL = "User_Management.User"
 
 ROOT_URLCONF = 'TicketingTool.urls'
 

@@ -13,6 +13,7 @@ class Ticket(models.Model):
         ("NEW","New"),
         ("CLOSED","Closed"),
         ("IN_PROGRESS","In Progress"),
+        ("ON_HOLD","On Hold"),      
         ("RESOLVED","Resolved")
     ]
     Ticket_Number = models.CharField(max_length=12,null=False,unique=True)
