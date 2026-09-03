@@ -5,15 +5,13 @@ from django.utils import timezone
 
 class CustomUserManager(UserManager):
 
-    def _create_user(self, email, password, **extra_fields):
+    def _create_user(self, Employee_ID, password, **extra_fields):
 
-        if not email:
-            raise ValueError("Email is necessary")
-
-        email = self.normalize_email(email)
+        if not Employee_ID:
+            raise ValueError("Employee ID is necessary")
 
         user = self.model(
-            email=email,
+            Employee_ID=Employee_ID,
             **extra_fields
         )
 
@@ -22,18 +20,18 @@ class CustomUserManager(UserManager):
 
         return user
 
-    def create_user(self, email=None, password=None, **extra_fields):
+    def create_user(self, Employee_ID=None, password=None, **extra_fields):
 
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
 
         return self._create_user(
-            email,
+            Employee_ID,
             password,
             **extra_fields
         )
 
-    def create_superuser(self, email=None, password=None, **extra_fields):
+    def create_superuser(self, Employee_ID=None, password=None, **extra_fields):
 
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -45,7 +43,7 @@ class CustomUserManager(UserManager):
             raise ValueError("Superuser must have is_superuser=True")
 
         return self._create_user(
-            email,
+            Employee_ID,
             password,
             **extra_fields
         )
@@ -53,9 +51,10 @@ class CustomUserManager(UserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    email = models.EmailField(
+    Employee_ID = models.CharField(
         unique=True,
-        blank=False
+        blank=False,
+        max_length=8
     )
 
     name = models.CharField(
@@ -77,7 +76,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "Employee_ID"
     REQUIRED_FIELDS = []
 
     def __str__(self):

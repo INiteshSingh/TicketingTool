@@ -27,11 +27,11 @@ def Detailed_View(request,ticket_number):
 
     ticket = get_object_or_404(
         Ticket,
-        Ticket_Number=ticket_number
+        Ticket_Number=ticket_number,
+        Ticket_Status = "RESOLVED"
     )
 
     if request.method == "POST":
-
         form = forms.UpdateForm(request.POST,instance=ticket)
         if form.is_valid():
             form.save()

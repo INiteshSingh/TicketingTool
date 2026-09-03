@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$@#%1tia^6@39m_6dt%e4roul%#(h*!-#%40b#zsi2-%4^*lb1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -73,7 +73,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'TicketingTool.wsgi.application'
 
-
+#CSRF Allowed Hosts
+CSRF_TRUSTED_ORIGINS = [
+    "https://8080-cs-c1fb3a42-9580-47ca-8449-836c924594ea.cs-asia-southeast1-palm.cloudshell.dev",
+]
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 

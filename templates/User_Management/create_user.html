@@ -1,0 +1,11 @@
+{% extends 'User_Management/base.html' %}
+
+{% block title %}Create User{% endblock %}
+
+{% block content %}
+<form action="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Create</button>
+</form>
+{% endblock %}
