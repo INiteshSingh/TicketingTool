@@ -7,3 +7,6 @@ class TicketForm(forms.ModelForm):
         fields = [
             "Issue_Category","Short_Description","Complete_Description","User_Contact","Raised_By"
         ]        
+
+class chat_bot_form(forms.Form):
+    user_query = forms.CharField(max_length=300)

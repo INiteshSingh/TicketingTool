@@ -6,7 +6,7 @@ class Ticket(models.Model):
         ("access", "Access Issue"),
         ("request", "Item Request"),
         ("hardware", "Hardware Issue"),
-        ("general", "General Issue"),
+    ("general", "General Issue"),
     ]
     #the one on the First gets stored
     Status=[

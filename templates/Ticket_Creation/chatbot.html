@@ -1,0 +1,14 @@
+<!-- This is the chat bot page where the user will first talk to the chatbot that will suggest some 
+kind of a resoultion for the issue the user is facing -->
+{% extends 'Ticket_Creation/base.html' %}
+
+{% block content %}
+
+<h2>This is the chatbot page</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

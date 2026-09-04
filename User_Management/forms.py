@@ -18,3 +18,8 @@ class User_Creation_form(forms.ModelForm):
         )
 
         return User
+
+class login_form(forms.Form):
+    class Meta:
+        model = User
+        fields = ["Employee_ID","password"]
