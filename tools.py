@@ -47,15 +47,23 @@ def chat_with_ai(prompt):
 
 #Function to Generate Ticket Numbers based on the Type Of Issue Raised
 # Access,Network,Hardware,General
-def Tic_Gen(Issue_Type):
+def Tic_Gen(Issue_Type,**kwargs):
     try:    
-        if Issue_Type == "access":
+        if Issue_Type == "Access Issue":
             return str("ACC"+str(r.randrange(50000,99999)))
-        elif Issue_Type == "request":
+        elif Issue_Type == "Item Request":
             return str("REQ"+str(r.randrange(50000,99999)))
-        elif Issue_Type == "hardware":
+        elif Issue_Type == "Hardware Issue":
             return str("HRD"+str(r.randrange(50000,99999)))
-        elif Issue_Type == "general":
+        elif Issue_Type == "General Issue":
             return str("GEN"+str(r.randrange(50000,99999)))
     except ValueError():
         print("Invalid Data Detected, Enter Correct Data")
+
+def User_Endpoint(Issue_Type,**kwargs):
+    if Issue_Type == "Hardware Issue":
+        return str("HRD"+str(r.randrange(50000,99999)))
+    elif Issue_Type == "Item Request":
+            return str("REQ"+str(r.randrange(50000,99999)))
+    else:
+        chat_with_ai()

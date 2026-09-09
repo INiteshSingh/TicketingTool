@@ -3,12 +3,12 @@ from django.db import models
 # Create your models here.
 class Ticket(models.Model):
     Issue_Type = [
-        ("access", "Access Issue"),
-        ("request", "Item Request"),
-        ("hardware", "Hardware Issue"),
-    ("general", "General Issue"),
+        ("Access Issue", "Access Issue"),
+        ("Item Request", "Item Request"),
+        ("Hardware Issue", "Hardware Issue"),
+        ("General Issue", "General Issue"),
     ]
-    #the one on the First gets stored
+    #the one on the First gets stored and the one on the left is displayed on the form in the page
     Status=[
         ("NEW","New"),
         ("CLOSED","Closed"),
