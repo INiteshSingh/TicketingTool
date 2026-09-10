@@ -5,7 +5,7 @@ from .models import Ticket
 #To Print the Form data and then print the data into the1 terminal
 
 def home_page(request):
-    return render(request,"Ticket_Creation/homepage.html")
+    return render(request,"Ticket_Creation/home.html")
 
 def ticket_form(request):
     if request.method == "POST":
@@ -22,3 +22,8 @@ def ticket_form(request):
         form = TicketForm()
     return render(request, "Ticket_Creation/chatbot.html", {"form": form})
 
+def ticket_status(request):
+    return render(request,"Ticket_Creation/ticket_status.html")
+
+def get_help(request):
+    return render(request,"Ticket_Creation/chatbot.html")

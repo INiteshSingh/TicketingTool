@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpDesk</title>
+    <style>
+        nav{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        ul{
+            display:flex;
+            gap:20px;
+            list-style:none;
+        }
+        li>a{
+            text-decoration:none;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="{% url 'Raise A Ticket' %}">Raise Ticket</a></li>
+            <li><a href="{% url 'Track Ticket' %}">Track Ticket</a></li>
+            <li><a href="{% url 'Get Support' %}">Get Support</a></li>
+        </ul>
+    </nav>
+    
+
+    {% block content %}
+        
+    {% endblock %}
+
+</body>
+</html>

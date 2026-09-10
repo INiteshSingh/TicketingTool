@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -136,4 +136,18 @@
     </main>
 
 </body>
-</html>
+</html> -->
+{% extends 'Ticket_Creation/home.html' %}
+
+{% block title %} Ticket form {% endblock %}
+
+{% block content %}
+
+<h1>Enter the following details for Raising a Ticket</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock %}

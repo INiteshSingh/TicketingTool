@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket Raised</title>
-</head>
-<body>
+{% extends 'Ticket_Creation/home.html' %}
 
-    <nav><a href="{%  url 'home_page' %}">Home</a></nav>
+{% block title %} Ticket Raised Successfully {% endblock %}
 
-    <h1>Your Ticket {{ticket_number}} has been raised</h1>
-</body>
-</html>
+{% block content %}
+
+<div class="tkt-raised"><h3>Your Ticket {{ticket_number}} has been raised successfully</h3></div>
+
+{% endblock %}
