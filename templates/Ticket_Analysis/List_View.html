@@ -25,7 +25,11 @@
             <tbody>
                 {% for ticket in tickets %}
                 <tr>
+                    {% if ticket.Ticket_Number %}
                 <th><a href="{% url 'detailed_view' ticket.Ticket_Number %}">{{ticket.Ticket_Number}}</a></th>
+                {% else %}
+                no ticket number
+                {% endif %}
                 <th>{{ticket.Issue_Category}}</th>
                 <th>{{ticket.Raised_By}}</th>
                 <th>{{ticket.Raised_At}}</th>
