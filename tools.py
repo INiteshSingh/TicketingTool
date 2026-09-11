@@ -50,6 +50,8 @@ def chat_with_ai(prompt):
 
 #Function to Generate Ticket Numbers based on the Type Of Issue Raised
 # Access,Network,Hardware,General
+# This needs to be converted from a random number generator to a uniform number generator,
+# the concept should be that the ticket would be generated in normal numbers instead of randoms, inc1,2,3.... and so on
 def Tic_Gen(Issue_Type,**kwargs):
     try:    
         if Issue_Type == "Access Issue":
@@ -62,6 +64,14 @@ def Tic_Gen(Issue_Type,**kwargs):
             return str("GEN"+str(r.randrange(50000,99999)))
     except ValueError():
         print("Invalid Data Detected, Enter Correct Data")
+
+"""Need a unifrom way to create ticket so that all the tickets are in a order like 1,2,3 etc and have a commn prefix INC that stands for incident"""
+def Unified_TIC_GEN(issue_category,*kwargs):
+    try:    
+        pass
+    except ValueError():
+        print("Invalid Data Detected, Enter Correct Data")
+
 
 def User_Endpoint(Issue_Type,**kwargs):
     if Issue_Type == "Hardware Issue":

@@ -12,11 +12,11 @@ def ticket_form(request):
         form = TicketForm(request.POST)
         if form.is_valid():
             ticket = form.save(commit=False)
-            issue_category = form.cleaned_data["Issue_Category"]
-            Ticket = Tic_Gen(issue_category)
-            ticket.Ticket_Number = Ticket
             ticket.save()
-            return redirect("Ticket Raised",Ticket)
+            ticket_number = f"INC{ticket.id:06d}"
+            ticket.Ticket_Number = ticket_number
+            ticket.save()
+            return redirect("Ticket Raised",ticket_number)
         else:
             err_msg = "Invalid details, check your details and try again"
             return render(request,"Ticket_Creation/ticket_form.html",{"err_msg":err_msg})
