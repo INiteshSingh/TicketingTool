@@ -28,14 +28,13 @@ def Detailed_View(request,ticket_number):
     ticket = get_object_or_404(
         Ticket,
         Ticket_Number=ticket_number,
-        Ticket_Status = "RESOLVED"
     )
 
     if request.method == "POST":
         form = forms.UpdateForm(request.POST,instance=ticket)
         if form.is_valid():
             form.save()
-            return redirect("detailed_view",ticket_number=ticket_number)
+            return render(request,"Ticket_Analysis/details.html",ticket_number=ticket_number)
     else:
         form = forms.UpdateForm(instance=ticket)
     return render(request,'Ticket_Analysis/Detail_View.html',{"ticket":ticket,"form":form})     

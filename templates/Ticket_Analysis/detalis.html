@@ -1,0 +1,13 @@
+{% extends 'Ticket_Analysis/List_View.html' %}
+
+{% block title%} {{ ticket_number }} {% endblock %}
+
+{% block body %} 
+
+<form method="post">
+    {% csrf_token %}
+    {% form.as_p %}
+    <input type="button" value="save">
+</form>
+
+{% endblock %}
