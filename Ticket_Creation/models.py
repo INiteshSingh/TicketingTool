@@ -10,11 +10,11 @@ class Ticket(models.Model):
     ]
     #the one on the First gets stored and the one on the left is displayed on the form in the page
     Status=[
-        ("NEW","New"),
-        ("CLOSED","Closed"),
-        ("IN_PROGRESS","In Progress"),
-        ("ON_HOLD","On Hold"),      
-        ("RESOLVED","Resolved")
+        ("New","NEW"),
+        ("Closed","CLOSED"),
+        ("In Progress","IN_PROGRESS"),
+        ("On Hold","ON_HOLD"),      
+        ("Resolved","RESOLVED")
     ]
     Ticket_Number = models.CharField(max_length=12,null=False,unique=True)
     Raised_By = models.CharField(max_length=30,null=False)
@@ -26,3 +26,6 @@ class Ticket(models.Model):
     Issue_Category = models.CharField(max_length=20,choices=Issue_Type)
     Working_Notes = models.TextField()
     Resolution_Notes = models.TextField()
+
+    def __str__(self):
+        return self.Ticket_Number

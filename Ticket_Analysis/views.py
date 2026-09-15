@@ -1,9 +1,12 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from Ticket_Creation.models import Ticket
 from . import forms
+from django.db.models import Q
 #View for a list dispaly for the raised tickets
 def Ticket_Display(request):
-    tickets = Ticket.objects.exclude(Ticket_Status = "CLOSED")
+    tickets = Ticket.objects.filter(
+        Ticket_Status__in=["NEW","IN_PROGRESS"]
+    )
     return render(request,'Ticket_Analysis/List_View.html',{"tickets":tickets})
 
 #view to update ticket, add notes, update the ticket status and resolution notes to a ticket
@@ -24,12 +27,8 @@ Requirements of this Function
 would see the ticket
 """
 def Detailed_View(request,ticket_number):
-
-    ticket = get_object_or_404(
-        Ticket,
-        Ticket_Number=ticket_number,
-    )
-
+    ticket = get_object_or_404(Ticket, Ticket_Number = ticket_number)
+    print(ticket)
     if request.method == "POST":
         form = forms.UpdateForm(request.POST,instance=ticket)
         if form.is_valid():
@@ -37,4 +36,4 @@ def Detailed_View(request,ticket_number):
             return redirect("detailed_view",ticket_number=ticket_number)
     else:
         form = forms.UpdateForm(instance=ticket)
-    return render(request,'Ticket_Analysis/Detail_View.html',{"ticket":ticket,"form":form})     
+    return render(request,'Ticket_Analysis/Detail_View.html',{"form":form,"ticket":ticket})     
