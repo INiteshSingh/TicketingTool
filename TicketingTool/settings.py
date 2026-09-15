@@ -54,6 +54,8 @@ MIDDLEWARE = [
 
 AUTH_USER_MODEL = "User_Management.User"
 
+
+
 ROOT_URLCONF = 'TicketingTool.urls'
 
 TEMPLATES = [

@@ -2,11 +2,15 @@ from django.shortcuts import render, redirect
 from tools import Tic_Gen
 from .forms import TicketForm,chat_bot_form
 from .models import Ticket
+from django.contrib.auth.decorators import login_required
+
 #To Print the Form data and then print the data into the1 terminal
 
+@login_required
 def home_page(request):
     return render(request,"Ticket_Creation/home.html")
 
+@login_required
 def ticket_form(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
@@ -23,7 +27,7 @@ def ticket_form(request):
     form = TicketForm()
     return render(request,'Ticket_Creation/ticket_form.html',{'form':form})
 
-
+@login_required
 def ticket_raised(request,ticket_number):
     return render(request,"Ticket_Creation/ticket_raised.html",{"ticket_number":ticket_number})
 
