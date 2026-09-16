@@ -28,7 +28,7 @@ def login_page(request):
             else:
                 error_msg = "Username or Password is Invalid"
                 return render(request,'')
-    return render(request,'User_Management/login.html')
+    return render(request,'User_Management/login.html',{'form':form})
 
 
 def Admin(request):

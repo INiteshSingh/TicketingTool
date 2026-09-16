@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+LOGIN_URL = "User_Login"
+LOGIN_REDIRECT_URL = "Home"
+LOGOUT_REDIRECT_URL = "User_Login"
 
 # Application definition
 
@@ -53,6 +56,8 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = "User_Management.User"
+
+
 
 ROOT_URLCONF = 'TicketingTool.urls'
 

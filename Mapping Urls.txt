@@ -2,3 +2,106 @@
         =>Help_Desk
             =>RaiseTicket
         =>
+
+
+
+1. Decide what the feature should do
+             ↓
+2. Decide what data it needs
+             ↓
+3. Decide which model(s) are involved
+             ↓
+4. Decide which URL should trigger it
+             ↓
+5. Decide what the view should do
+             ↓
+6. Decide what the template needs
+             ↓
+7. Implement
+             ↓
+8. Test
+             ↓
+9. Ask AI only when stuck
+
+A realistic 6-week plan
+
+If you're doing this alongside other things, I'd give yourself 6 weeks, not 2 weeks.
+
+Week 1 — Groups & permissions
+
+Goal: Different users see different parts of the application.
+
+Create groups
+Assign users to groups
+Restrict Ticket Analysis
+Restrict ticket modification
+Test unauthorized access
+Clean up access decorators/checks
+Week 2 — Notes
+
+Goal: Every ticket has a conversation/history.
+
+Create TicketNote
+Connect Note → Ticket
+Connect Note → User
+Add note form
+Display notes
+Timestamp notes
+Restrict who can add notes
+Test
+Week 3 — Search
+
+Goal: Find a ticket quickly.
+
+Search by ticket number
+Search by status
+Search by category
+Search by employee
+Display results
+Click result → detailed page
+Handle "no results"
+Week 4 — UI
+
+Goal: Make the application pleasant to use.
+
+Navigation
+Consistent layout
+Tables/cards
+Status badges
+Forms
+Error messages
+Detail page
+Search page
+Responsive layout
+
+Don't obsess over perfection here.
+
+Week 5 — AI
+
+Goal: Give users troubleshooting suggestions.
+
+Choose API provider
+Create API key securely
+Build backend AI service
+Send issue description
+Receive suggested solutions
+Display suggestions
+Add "Still need help? Raise ticket"
+Hardware → bypass AI
+Add error handling
+Add usage/cost limits
+Week 6 — Hardening + analytics
+
+Goal: Turn it from a demo into something credible.
+
+Permission testing
+Form validation
+Unauthorized URL testing
+Ticket ownership testing
+AI failure handling
+Logging
+Ticket statistics
+Engineer resolution counts
+Begin SLA calculations
+
+You can then continue the analytics/SLA work into week 7 if needed.

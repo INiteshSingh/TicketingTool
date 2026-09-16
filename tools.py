@@ -1,66 +1,74 @@
-# import random as r
-# from dotenv import load_dotenv
-# import os
+import random as r
+from dotenv import load_dotenv
+import os
+from openai import OpenAI
+load_dotenv()
 
-# load_dotenv()
+client = OpenAI(
+    base_url="http://localhost:11434/v1",
+    api_key="ollama"
+)
+""""""
+#Sends the Chat to AI Model
+def chat_with_ai(prompt):
+    
+    response = client.chat.completions.create(
+        model = "qwen3:8b",
+        messages=[
+            {"role":"system",
+            "content":"""You are an IT Help Desk Troubleshooting assistant,
 
-# client = OpenAI(
-#     base_url="http://localhost:11434/v1",
-#     api_key="ollama"
-# )
-# """"""
-# #Sends the Chat to AI Model
-# def chat_with_ai(prompt):
-#     if testing:
-#         response = client.chat.completions.create(
-#             model = "qwen3:8b",
-#             messages=[
-#                 {"role":"system",
-#                 "content":"""You are an IT Help Desk Troubleshooting assistant,
+                Your Job is to provided the user with basic solutions that they can apply to solve
+                regular IT related issue.
+                The most common issue you might encounter are related to
+                outlook, teams, VPN configuration setup guides, and network related issues along with 
+                some internal tools that the user's are using in the organisation.
+                
+                You currently dont have the knoweledge about the internal organisation tools, 
+                so if and when a user is asking for a resolution regarding any internal tool's 
+                related issues, just response to the user 
+                saying that the Local IT team will solve the issues related to Internal tools.
 
-#                     Your Job is to provided the user with basic solutions that they can apply to solve
-#                     regular IT related issue.
-#                     The most common issue you might encounter are related to
-#                     outlook, teams, VPN configuration setup guides, and network related issues along with 
-#                     some internal tools that the user's are using in the organisation.
-                    
-#                     You currently dont have the knoweledge about the internal organisation tools, 
-#                     so if and when a user is asking for a resolution regarding any internal tool's 
-#                     related issues, just response to the user 
-#                     saying that the Local IT team will solve the issues related to Internal tools.
+                If the user asks for any kind of peripherials then go with the following procedure, 
+                Inorder for the user to get any peripherals the user has to raise a ticket so that the 
+                local IT team will order and provided the required item for the user, so when a user asks you
+                just ask them the following questions,
+                1.What do you need, 
+                2.How Many You need of the item,
+                3.What is your Cost Center Number, 
+                4.Ask them to get an approval of their manager for the ticket being raised after the user answers the first 3 questions
+            """},
 
-#                     If the user asks for any kind of peripherials then go with the following procedure, 
-#                     Inorder for the user to get any peripherals the user has to raise a ticket so that the 
-#                     local IT team will order and provided the required item for the user, so when a user asks you
-#                     just ask them the following questions,
-#                     1.What do you need, 
-#                     2.How Many You need of the item,
-#                     3.What is your Cost Center Number, 
-#                     4.Ask them to get an approval of their manager for the ticket being raised after the user answers the first 3 questions
-#                 """},
+            {"role":"user", 
+            "content":prompt}],
+        max_tokens=1024,
+    )
+    return response.choices[0].message.content.strip()
 
-#                 {"role":"user", 
-#                 "content":prompt}],
-#             max_tokens=1024,
-#         )
-#         return response.choices[0].message.content.strip()
-#     response = "Use Openrouter if Not Testing"
-#     return response
+#Function to Generate Ticket Numbers based on the Type Of Issue Raised
+# Access,Network,Hardware,General
+# This needs to be converted from a random number generator to a uniform number generator,
+# the concept should be that the ticket would be generated in normal numbers instead of randoms, inc1,2,3.... and so on
+def Tic_Gen(Issue_Type,**kwargs):
+    try:    
+        if Issue_Type == "Access Issue":
+            return str("ACC"+str(r.randrange(50000,99999)))
+        elif Issue_Type == "Item Request":
+            return str("REQ"+str(r.randrange(50000,99999)))
+        elif Issue_Type == "Hardware Issue":
+            return str("HRD"+str(r.randrange(50000,99999)))
+        elif Issue_Type == "General Issue":
+            return str("GEN"+str(r.randrange(50000,99999)))
+    except ValueError():
+        print("Invalid Data Detected, Enter Correct Data")
 
-# #Function to Generate Ticket Numbers based on the Type Of Issue Raised
-# # Access,Network,Hardware,General
-# def Tic_Gen(Issue_Type,**kwargs):
-#     try:    
-#         if Issue_Type == "Access Issue":
-#             return str("ACC"+str(r.randrange(50000,99999)))
-#         elif Issue_Type == "Item Request":
-#             return str("REQ"+str(r.randrange(50000,99999)))
-#         elif Issue_Type == "Hardware Issue":
-#             return str("HRD"+str(r.randrange(50000,99999)))
-#         elif Issue_Type == "General Issue":
-#             return str("GEN"+str(r.randrange(50000,99999)))
-#     except ValueError():
-#         print("Invalid Data Detected, Enter Correct Data")
+"""Need a unifrom way to create ticket so that all the tickets are in a order like 1,2,3 etc and have a commn prefix INC that stands for incident"""
+def Unified_TIC_GEN(issue_category,*kwargs):
+    try:    
+        pass
+    except ValueError():
+        print("Invalid Data Detected, Enter Correct Data")
+
 
 # def User_Endpoint(Issue_Type,**kwargs):
 #     if Issue_Type == "Hardware Issue":
@@ -69,3 +77,6 @@
 #             return str("REQ"+str(r.randrange(50000,99999)))
 #     else:
 #         chat_with_ai()
+
+
+
