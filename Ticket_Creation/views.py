@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 # from tools import Tic_Gen
+import json
 from .forms import TicketForm,chat_bot_form
 from .models import Ticket
 from django.contrib.auth.decorators import login_required
 from tools import chat_with_ai
+from django.http import JsonResponse
 #To Print the Form data and then print the data into the1 terminal
 
 @login_required
@@ -13,12 +15,12 @@ def home_page(request):
 @login_required
 def chat_bot_interface(request):
     if request.method == "POST":
-        pass #some code that sends the user query to the model and some that sends back the response to and fro
-        form = chat_bot_form(request.POST)
-        if form.is_valid():
-           response = chat_with_ai(form.changed_data["user_query"])
-           return render(request,"Ticket_Creation/chatbot.html",{"response":response})
-    return render(request,"Ticket_Creation/chatbot.html")
+        body = json.loads(request.body)
+        prompt = body.get('prompt')
+        print(prompt)
+        response = chat_with_ai(prompt)
+        return JsonResponse({"response":response})
+    return render(request,'Ticket_Creation/chatbot.html')
 
 @login_required
 def ticket_form(request):

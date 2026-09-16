@@ -3,7 +3,61 @@
 {% block title %} Get Help {% endblock %}
 
 {% block content %}
+<form>{%csrf_token%}
+<div class="tkt-raised">
+    <input type="text" id="Prompt">
+    <button type="button" id="send">send</button>
+</div>
+</form>
+{% block extra_js %} {% endblock %}
 
-<div class="tkt-raised"><h3>Chat Bot Page</h3></div>
+<script>
 
+// async function fetchData() {
+//         const UserPrompt = document.getElementById("Prompt").value;
+//         console.log(UserPrompt);
+
+//     }
+//     const submit = document.getElementById("send")
+//     submit.addEventListener('click',fetchData);
+
+const buttn = document.getElementById("send");
+
+buttn.addEventListener('click',SendData)
+
+async function SendData(){
+    //Data that the user is entering 
+    const prompt = document.getElementById("Prompt").value;
+
+    //CSRF Middleware token
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    const payload = {
+        prompt : prompt
+    };
+
+    try{
+        const response = await fetch("{% url 'Get Support' %}" ,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken':csrfToken
+            },
+            body: JSON.stringify(payload)
+        }
+    );
+    
+    const data = await response.json();
+    
+    if (response.ok){
+        console.log(data);
+    }
+    }catch(error){
+        console.log(error);
+        
+    }
+}
+
+
+</script>
 {% endblock %}
