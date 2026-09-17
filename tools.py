@@ -45,7 +45,7 @@ def chat_with_ai(prompt,host):
         )
         return response.choices[0].message.content.strip()
     else:
-        respose = client.chat.completions.create(
+        response = client.chat.completions.create(
             model = "qwen3:8b",
             messages = [
                 {"role":"system",

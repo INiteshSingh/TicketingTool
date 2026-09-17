@@ -19,7 +19,8 @@ def chat_bot_interface(request):
         prompt = body.get('prompt')
         print(prompt)
         print(request.get_host())
-        response = chat_with_ai(prompt,request.get_host())
+        host = "not local host"
+        response = chat_with_ai(prompt,host)
         # response = "temporry response"
         return JsonResponse({"response":response})
     return render(request,'Ticket_Creation/chatbot.html')

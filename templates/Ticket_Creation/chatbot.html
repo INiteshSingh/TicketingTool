@@ -3,19 +3,26 @@
 {% block title %} Get Help {% endblock %}
 
 {% block content %}
-<form>{%csrf_token%}
-<div class="tkt-raised">
-    <input type="text" id="Prompt">
-    <button type="button" id="send">send</button>
-</div>
-</form>
 
-<div id="response">
+<div class="chatbot">
 
+    <div id="response">
+        <span>Text</span>
+    </div>
+
+    <div class="prompt">
+        <form>{%csrf_token%}
+            <div class="tkt-raised">
+                <input type="text" id="Prompt">
+                <button type="button" id="send">send</button>
+            </div>
+        </form>
+    </div>
+    
 </div>
+
 {% endblock %}
 {% block extra_js %} 
-
 <script>
 
 // async function fetchData() {
@@ -55,7 +62,7 @@ async function SendData(){
     const data = await response.json();
     
     if (response.ok){
-        response_block.innerHTML = `<span>this is the reponse ${data.response}</span>`;
+        response_block.innerHTML = `<span> ${data.response}</span>`;
         console.log(data.response);
     }
     }catch(error){
