@@ -9,7 +9,12 @@
     <button type="button" id="send">send</button>
 </div>
 </form>
-{% block extra_js %} {% endblock %}
+
+<div id="response">
+
+</div>
+{% endblock %}
+{% block extra_js %} 
 
 <script>
 
@@ -22,13 +27,13 @@
 //     submit.addEventListener('click',fetchData);
 
 const buttn = document.getElementById("send");
+const response_block = document.getElementById("response");
 
 buttn.addEventListener('click',SendData)
 
 async function SendData(){
     //Data that the user is entering 
     const prompt = document.getElementById("Prompt").value;
-
     //CSRF Middleware token
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
@@ -50,14 +55,13 @@ async function SendData(){
     const data = await response.json();
     
     if (response.ok){
-        console.log(data);
+        response_block.innerHTML = `<span>this is the reponse ${data.response}</span>`;
+        console.log(data.response);
     }
     }catch(error){
         console.log(error);
-        
     }
 }
-
 
 </script>
 {% endblock %}
