@@ -20,8 +20,8 @@ def chat_bot_interface(request):
         print(prompt)
         print(request.get_host())
         host = "not local host"
-        response = chat_with_ai(prompt,host)
-        # response = "temporry response"
+        # response = chat_with_ai(prompt,host)
+        response = "temporry response"
         return JsonResponse({"response":response})
     return render(request,'Ticket_Creation/chatbot.html')
 

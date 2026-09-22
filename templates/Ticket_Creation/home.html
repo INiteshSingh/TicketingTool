@@ -66,6 +66,7 @@
             background-color: var(--surface);
             border-bottom: 1px solid var(--border);
             box-shadow: var(--shadow-sm);
+            
         }
 
         .nav-links {
@@ -93,82 +94,20 @@
             background-color: #eff6ff;
         }
 
-        /* Main Workspace */
-        .main-container {
-            flex: 1;
-            width: 100%;
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+        .chatbot{
+            border:2px solid black;
+            max-width:80%;
+            margin:auto;
+            padding:10px;
+            border-radius:10px;
+            background-color:white;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            min-height:400px;
+            justify-content: flex-end;
         }
 
-        /* Chatbot Container & Utilities */
-        .chatbot {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 460px;
-            margin: 0 auto;
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-            min-height: 480px;
-        }
-
-        .chat-header {
-            padding: 1rem 1.25rem;
-            border-bottom: 1px solid var(--border);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            border-top: 1px solid var(--border);
-            background-color: #fafafa;
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            padding: 0.6rem 0.85rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            font-size: 0.875rem;
-            outline: none;
-        }
-
-        .chat-input-area input:focus {
-            border-color: var(--primary);
-        }
-
-        .chat-input-area button {
-            background-color: var(--primary);
-            color: #ffffff;
-            border: none;
-            padding: 0.6rem 1rem;
-            border-radius: var(--radius-md);
-            font-weight: 500;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: background-color 0.15s ease;
-        }
-
-        .chat-input-area button:hover {
-            background-color: var(--primary-hover);
-        }
     </style>
 </head>
 <body>

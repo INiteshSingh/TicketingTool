@@ -5,70 +5,79 @@
 {% block content %}
 
 <div class="chatbot">
+    <div id="response"></div>
+    <div class="input-area">
+        <form id="chat-form">
+    {% csrf_token %}
 
-    <div id="response">
-        <span>Text</span>
-    </div>
+    <input
+        type="text"
+        id="Prompt"
+        placeholder="Ask AI Assistant for help"
+    >
 
-    <div class="prompt">
-        <form>{%csrf_token%}
-            <div class="tkt-raised">
-                <input type="text" id="Prompt">
-                <button type="button" id="send">send</button>
-            </div>
-        </form>
+    <button type="submit" id="send">Send</button>
+</form>
+
     </div>
-    
 </div>
 
 {% endblock %}
 {% block extra_js %} 
 <script>
-
-// async function fetchData() {
-//         const UserPrompt = document.getElementById("Prompt").value;
-//         console.log(UserPrompt);
-
-//     }
-//     const submit = document.getElementById("send")
-//     submit.addEventListener('click',fetchData);
-
-const buttn = document.getElementById("send");
+const form = document.getElementById("chat-form");
 const response_block = document.getElementById("response");
 
-buttn.addEventListener('click',SendData)
+form.addEventListener("submit", SendData);
 
-async function SendData(){
-    //Data that the user is entering 
+async function SendData(event) {
+
+    event.preventDefault();
+
     const prompt = document.getElementById("Prompt").value;
-    //CSRF Middleware token
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    const csrfToken = document.querySelector(
+        '[name=csrfmiddlewaretoken]'
+    ).value;
 
     const payload = {
-        prompt : prompt
+        prompt: prompt
     };
 
-    try{
-        const response = await fetch("{% url 'Get Support' %}" ,{
-            method: 'POST',
+    try {
+
+        const response = await fetch("{% url 'Get Support' %}", {
+            method: "POST",
+
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken':csrfToken
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
             },
+
             body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+
+            response_block.innerHTML += `
+                <div class="chat">
+                    <span class="prompt-return">
+                        ${prompt}
+                    </span>
+                    <br>
+                    <span class="response-return">
+                        ${data.response}
+                    </span>
+                </div>
+            `;
+
         }
-    );
-    
-    const data = await response.json();
-    
-    if (response.ok){
-        response_block.innerHTML = `<span> ${data.response}</span>`;
-        console.log(data.response);
-    }
-    }catch(error){
+
+    } catch (error) {
         console.log(error);
     }
 }
-
 </script>
 {% endblock %}
