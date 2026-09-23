@@ -94,20 +94,104 @@
             background-color: #eff6ff;
         }
 
-        .chatbot{
-            border:2px solid black;
-            max-width:80%;
-            margin:auto;
-            padding:10px;
-            border-radius:10px;
-            background-color:white;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            min-height:400px;
-            justify-content: flex-end;
-        }
+        .chatbot {
+    border: 1px solid var(--border);
+    width: 40%;
+    min-width: 450px;
+    height: 600px;
+    margin: 2rem auto;
+    border-radius: var(--radius-lg);
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
 
+/* Area where the conversation appears */
+#response {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* One user + AI exchange */
+.chat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+/* User message */
+.prompt-return {
+    align-self: flex-end;
+    max-width: 75%;
+    background-color: var(--primary);
+    color: white;
+    padding: 0.65rem 0.9rem;
+    border-radius: 14px 14px 3px 14px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+}
+
+/* AI response */
+.response-return {
+    align-self: flex-start;
+    max-width: 75%;
+    background-color: #f1f5f9;
+    color: var(--text-main);
+    padding: 0.65rem 0.9rem;
+    border-radius: 14px 14px 14px 3px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    border: 1px solid var(--border);
+    overflow-wrap: break-word;
+}
+
+/* Input area */
+.input-area {
+    border-top: 1px solid var(--border);
+    padding: 0.8rem;
+    background-color: var(--surface);
+}
+
+#chat-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#Prompt {
+    flex: 1;
+    width: auto;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+#Prompt:focus {
+    border-color: var(--primary);
+}
+
+#send {
+    border: none;
+    background-color: var(--primary);
+    color: white;
+    padding: 0.65rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#send:hover {
+    background-color: var(--primary-hover);
+}
     </style>
 </head>
 <body>

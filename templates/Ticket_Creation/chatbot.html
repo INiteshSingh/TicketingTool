@@ -8,17 +8,10 @@
     <div id="response"></div>
     <div class="input-area">
         <form id="chat-form">
-    {% csrf_token %}
-
-    <input
-        type="text"
-        id="Prompt"
-        placeholder="Ask AI Assistant for help"
-    >
-
-    <button type="submit" id="send">Send</button>
-</form>
-
+            {% csrf_token %}
+            <input type="text" id="Prompt" placeholder="Ask AI Assistant for help">
+            <button type="submit" id="send">Send</button>
+        </form>
     </div>
 </div>
 
@@ -62,16 +55,16 @@ async function SendData(event) {
         if (response.ok) {
 
             response_block.innerHTML += `
-                <div class="chat">
-                    <span class="prompt-return">
-                        ${prompt}
-                    </span>
-                    <br>
-                    <span class="response-return">
-                        ${data.response}
-                    </span>
-                </div>
-            `;
+    <div class="chat">
+        <div class="prompt-return">
+            <span>${prompt}</span>
+        </div>
+
+        <div class="response-return">
+            <span>${data.response}</span>
+        </div>
+    </div>
+`;
 
         }
 
