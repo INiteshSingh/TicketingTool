@@ -6,6 +6,7 @@ from .models import Ticket
 from django.contrib.auth.decorators import login_required
 from tools import chat_with_ai
 from django.http import JsonResponse
+from django.urls import reverse
 #To Print the Form data and then print the data into the1 terminal
 
 @login_required
@@ -19,9 +20,17 @@ def chat_bot_interface(request):
         prompt = body.get('prompt')
         ai_result = chat_with_ai(prompt)
         response = ai_result["response"]
+        print(prompt)
+        print(response)
+        print(ai_result['Raise_Ticket'])
         if ai_result['Raise_Ticket'] == True:
-            return redirect("Raise Ticket")
-        return JsonResponse({"response":response})
+            return JsonResponse({
+                "redirect":True,
+                "url":reverse("Raise A Ticket")
+            })
+        return JsonResponse({
+            "redirect":False,
+            "response":response})
     return render(request,'Ticket_Creation/chatbot.html')
 
 @login_required
@@ -46,6 +55,8 @@ def ticket_raised(request,ticket_number):
     return render(request,"Ticket_Creation/ticket_raised.html",{"ticket_number":ticket_number})
 
 def ticket_status(request):
+    if request.method == "POST":
+        ticket
     return render(request,"Ticket_Creation/ticket_status.html")
 
 def get_help(request):

@@ -51,15 +51,3 @@ def chat_with_ai(prompt):
     return response
 
 
-# while True:
-#     prompt = input("User: ")
-#     test = chat_with_ai(prompt)
-#     # print(json.loads(test))
-#     response = json.loads(test)
-#     print(response['response'])
-#     print(response['Raise_Ticket'])
-    # print(json.dump(test))
-    # response  = json.dumps(chat_with_ai(prompt))
-    # print(response,"\n")
-    # print(response['response'],"/n")
-    # print(response['Raise_Ticket'])

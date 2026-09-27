@@ -20,7 +20,11 @@
 <script>
 const form = document.getElementById("chat-form");
 const response_block = document.getElementById("response");
-
+// const btn = document.getElementById('send');
+// const input = document.getElementById('Prompt')
+// btn.addEventListener('click',()=>{
+//     input.value = "";
+// });
 form.addEventListener("submit", SendData);
 
 async function SendData(event) {
@@ -38,6 +42,12 @@ async function SendData(event) {
     };
 
     try {
+        response_block.innerHTML += 
+        `<div class="chat">
+            <div class="prompt-return">
+                <span>${prompt}</span>
+            </div>
+        </div>`
 
         const response = await fetch("{% url 'Get Support' %}", {
             method: "POST",
@@ -51,26 +61,26 @@ async function SendData(event) {
         });
 
         const data = await response.json();
-
+        if (data.redirect){
+            window.location.href = data.url;
+            return;
+        }
         if (response.ok) {
 
             response_block.innerHTML += `
-    <div class="chat">
-        <div class="prompt-return">
-            <span>${prompt}</span>
-        </div>
-
-        <div class="response-return">
-            <span>${data.response}</span>
-        </div>
-    </div>
-`;
+                <div class="response-return">
+                    <span>${data.response}</span>
+                </div>
+                `;
 
         }
 
     } catch (error) {
         console.log(error);
     }
+    console.log("AI response",data);
+    console.log("Redirect Value:",data.redirect);
+    console.log("Redirect URL:",data.url);
 }
 </script>
 {% endblock %}

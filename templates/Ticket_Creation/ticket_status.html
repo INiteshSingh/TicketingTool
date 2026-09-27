@@ -6,6 +6,8 @@
 {% block content %}
     <h3>Ticket Status Page</h3>
     <form method="post">
+        {% csrf_token %}
         <input type="text" placeholder="Enter ">
+        <button type="submit">Search</button>
     </form>
 {% endblock %}
