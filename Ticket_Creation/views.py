@@ -17,11 +17,10 @@ def chat_bot_interface(request):
     if request.method == "POST":
         body = json.loads(request.body)
         prompt = body.get('prompt')
-        print(prompt)
-        print(request.get_host())
-        host = "not local host"
-        # response = chat_with_ai(prompt,host)
-        response = "temporry response"
+        ai_result = chat_with_ai(prompt)
+        response = ai_result["response"]
+        if ai_result['Raise_Ticket'] == True:
+            return redirect("Raise Ticket")
         return JsonResponse({"response":response})
     return render(request,'Ticket_Creation/chatbot.html')
 
