@@ -4,10 +4,41 @@
 
 
 {% block content %}
-    <h3>Ticket Status Page</h3>
+{% if ticket %}
+<h3>Ticket Status Page</h3>
+    <table border="solid">
+            <thead>
+                <tr>
+                    <th>Ticket Number</th>
+                    <th>Issue Issue Category</th>
+                    <th>Raised By</th>
+                    <th>Raised At</th>
+                    <th>Issue Details</th>
+                    <th>Ticket Status</th>
+                    <th>User Contact Details</th>
+
+                </tr>
+            </thead>
+                 
+            <tbody>
+                <tr>
+                <th>{{ticket.Ticket_Number}}</th>
+                <th>{{ticket.Issue_Category}}</th>
+                <th>{{ticket.Raised_By}}</th>
+                <th>{{ticket.Raised_At}}</th>
+                <th>{{ticket.Short_Description}}</th>
+                <th>{{ticket.Ticket_Status}}</th>
+                <th>{{ticket.User_Contact}}</th>
+                </tr>
+            </tbody>
+        </table>
+
+
+{% else %}
     <form method="post">
         {% csrf_token %}
-        <input type="text" placeholder="Enter ">
+        {{ form.as_p }}
         <button type="submit">Search</button>
     </form>
+    {% endif %}
 {% endblock %}

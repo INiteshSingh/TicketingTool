@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 # from tools import Tic_Gen
 import json
-from .forms import TicketForm,chat_bot_form
+from .forms import TicketForm,ticket_status_form
 from .models import Ticket
 from django.contrib.auth.decorators import login_required
 from tools import chat_with_ai
@@ -55,9 +55,16 @@ def ticket_raised(request,ticket_number):
     return render(request,"Ticket_Creation/ticket_raised.html",{"ticket_number":ticket_number})
 
 def ticket_status(request):
-    if request.method == "POST":
-        ticket
-    return render(request,"Ticket_Creation/ticket_status.html")
+    ticket_number = request.GET.get('ticket_number')
 
-def get_help(request):
-    return render(request,"Ticket_Creation/chatbot.html")
+    ticket = get_object_or_404(
+        Ticket.objects.select_related("Raised_By"),
+        Ticket_Number = ticket_number
+    )
+
+    return JsonResponse({
+        "ticket_number":ticket.Ticket_Number,
+        "short_description":ticket.Short_Description,
+        "status":ticket.Ticket_Status,
+        "issue_category":ticket.Issue_Category,
+    })

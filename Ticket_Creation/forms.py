@@ -8,5 +8,6 @@ class TicketForm(forms.ModelForm):
             "Issue_Category","Short_Description","Complete_Description","User_Contact","Raised_By"
         ]        
 
-class chat_bot_form(forms.Form):
-    user_query = forms.CharField(max_length=300)
+class ticket_status_form(forms.Form):
+    Ticket_Number = forms.CharField(max_length=12)
+
