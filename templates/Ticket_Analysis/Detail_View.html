@@ -20,6 +20,14 @@
             padding: 5px;
             border-radius: 2px;
         }
+        .ticket_details{
+          border:1px solid black;
+          padding:5px;
+          border-radius: 5px;
+          width:100px;
+          margin-left:100px;
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
     </style>
   </head>
   <body>
@@ -27,17 +35,17 @@
     <h1>Detailed View {{ticket.Ticket_Number}} </h1>
     <div class="main">
       <div class="left">
-        <p>{{ticket.Ticket_Number}}</p>
-        <p>{{ticket.Issue_Category}}</p>
-        <p>{{ticket.Short_Description}}</p>
-        <p>{{ticket.Complete_Description}}</p>
+        <p>Number <span class="ticket_details">{{ticket.Ticket_Number}}</span></p>
+        <p>Category <span class="ticket_details">{{ticket.Issue_Category}}</span></p>
+        <p>Short Description <span class="ticket_details">{{ticket.Short_Description}}</span></p>
+        <p>Description <span class="ticket_details">{{ticket.Complete_Description}}</span></p>
       </div>
 
       <div class="right">
-        <p>{{ticket.Ticket_Status}}</p>
-        <p>{{ticket.User_Contact}}</p>
-        <p>{{ticket.Raised_By}}</p>
-        <p>{{ticket.Raised_At}}</p>
+        <p>Status <span class="ticket_details">{{ticket.Ticket_Status}}</span></p>
+        <p>Contact <span class="ticket_details">{{ticket.User_Contact}}</span></p>
+        <p>Caller <span class="ticket_details">{{ticket.Raised_By}}</span></p>
+        <p>Raised At <span class="ticket_details">{{ticket.Raised_At}}</span></p>
       </div>
     </div>
 

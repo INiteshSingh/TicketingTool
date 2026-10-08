@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 # from tools import Tic_Gen
 import json
 from .forms import TicketForm,ticket_status_form
@@ -55,16 +55,16 @@ def ticket_raised(request,ticket_number):
     return render(request,"Ticket_Creation/ticket_raised.html",{"ticket_number":ticket_number})
 
 def ticket_status(request):
-    ticket_number = request.GET.get('ticket_number')
+    if request.method == 'POST':
+        form = ticket_status_form(request.POST)
+        if form.is_valid():
+            ticket_number = form.cleaned_data['Ticket_Number']
+            try:
+                ticket = Ticket.objects.get(Ticket_Number=ticket_number)
+                return render(request,'Ticket_Creation/ticket_status.html',{'ticket': ticket})
+            except Ticket.DoesNotExist:
+                return render(request,'Ticket_Creation/ticket_status.html',{'error_message': 'Ticket not found.'})
+    else:
+        form = ticket_status_form()
+    return render(request, 'Ticket_Creation/ticket_status.html', {'form': form})
 
-    ticket = get_object_or_404(
-        Ticket.objects.select_related("Raised_By"),
-        Ticket_Number = ticket_number
-    )
-
-    return JsonResponse({
-        "ticket_number":ticket.Ticket_Number,
-        "short_description":ticket.Short_Description,
-        "status":ticket.Ticket_Status,
-        "issue_category":ticket.Issue_Category,
-    })

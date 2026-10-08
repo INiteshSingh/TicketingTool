@@ -22,20 +22,21 @@
                  
             <tbody>
                 <tr>
-                <th>{{ticket.Ticket_Number}}</th>
-                <th>{{ticket.Issue_Category}}</th>
-                <th>{{ticket.Raised_By}}</th>
-                <th>{{ticket.Raised_At}}</th>
-                <th>{{ticket.Short_Description}}</th>
-                <th>{{ticket.Ticket_Status}}</th>
-                <th>{{ticket.User_Contact}}</th>
+                <th>Number {{ticket.Ticket_Number}}</th>
+                <th>Category {{ticket.Issue_Category}}</th>
+                <th>Caller {{ticket.Raised_By}}</th>
+                <th>Date {{ticket.Raised_At}}</th>
+                <th>Short Description{{ticket.Short_Description}}</th>
+                <th>Status {{ticket.Ticket_Status}}</th>
+                <th>User Contact {{ticket.User_Contact}}</th>
                 </tr>
             </tbody>
         </table>
-
+{% elif error_message %}
+        <h1>{{error_message}}</h1>
 
 {% else %}
-    <form method="post">
+<form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Search</button>
