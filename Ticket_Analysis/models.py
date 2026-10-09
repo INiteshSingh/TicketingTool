@@ -12,7 +12,7 @@ class Working_Notes(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,
     null=True)
 
-     = models.TextField()
+    Working_Notes = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
 

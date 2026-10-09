@@ -1,6 +1,8 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from Ticket_Creation.models import Ticket
+from Ticket_Analysis.models import Working_Notes
 from . import forms
+from django.contrib.auth.decorators import login_required
 #View for a list dispaly for the raised tickets
 def Ticket_Display(request):
     tickets = Ticket.objects.filter(
@@ -26,16 +28,20 @@ Requirements of this Function
 3.Show only the tickets that are active in the Ticket Analysis Page, since that would be the only point where the analyst 
 would see the ticket
 """
+@login_required
 def Detailed_View(request,ticket_number):
     all_tickets = Ticket.objects.filter(
         Ticket_Status__in=["NEW","In Progress","On Hold"]
     )
-    ticket = get_object_or_404(Ticket, Ticket_Number = ticket_number)
+    ticket_num = get_object_or_404(Ticket, Ticket_Number = ticket_number)
     if request.method == "POST":
-        form = forms.UpdateForm(request.POST,instance=ticket)
-        if form.is_valid():
-            form.save()
-            return render(request,"Ticket_Analysis/List_View.html",{"tickets":all_tickets})
+        working_notes = request.POST.get('Working_Notes')
+        Working_Notes.objects.create(
+            ticket = ticket_num,
+            author = request.User,
+            Working_Notes = working_notes
+        )
+        return render(request,"Ticket_Analysis/List_View.html",{"tickets":all_tickets})
     else:
-        form = forms.UpdateForm(instance=ticket)
-    return render(request,'Ticket_Analysis/Detail_View.html',{"form":form,"ticket":ticket})     
+        form = forms.Working_Notes()
+    return render(request,'Ticket_Analysis/Detail_View.html',{"form":form,"ticket":ticket_num})     
