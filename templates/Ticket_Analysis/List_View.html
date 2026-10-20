@@ -9,6 +9,7 @@
     <h1>This is the Tickets Page</h1>
     {% if tickets %}
         <table border="solid">
+
             <thead>
                 <tr>
                     <th>Ticket Number</th>
@@ -27,6 +28,7 @@
                 <tr>
                     {% if ticket.Ticket_Number %}
                 <th><a href="{% url 'detailed_view' ticket.Ticket_Number %}">{{ticket.Ticket_Number}}</a></th>
+                <!-- <th><a href="{% url 'detailed_view' ticket.Ticket_Number %}">{{ticket.Ticket_Number}}</a></th> -->
                 {% else %}
                 no ticket number
                 {% endif %}
@@ -43,6 +45,11 @@
     {% else %}
         <h1>There are No Tickets Present in the System at the moment</h1>
     {%endif%}
+
+        <script>
+            //need to create a link between js and django to send the ticket number to the backend
+            
+        </script>
 
 </body>
 </html>

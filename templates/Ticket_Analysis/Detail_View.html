@@ -49,6 +49,10 @@
       </div>
     </div>
 
+    {% if working_notes %}
+      {{working_notes}}
+    {% endif %}
+
     <h1>Update</h1>
 
     <form method="post">
@@ -64,6 +68,16 @@
     {% else %}
     <h1>Invalid Item</h1>
     {%endif%}
+
+    {% if form %}
+    <span>Add Working Notes</span>
+    <form action="" method='post'>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">submit</button>
+    </form>
+
+    {% endif %}
 
   </body>
 </html>
