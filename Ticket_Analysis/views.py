@@ -1,34 +1,61 @@
-from django.shortcuts import render,get_object_or_404,redirect
+from django.shortcuts import render, get_object_or_404
 from Ticket_Creation.models import Ticket
-from Ticket_Analysis.models import workingNotes
-from .forms import workingNotesForm
-from django.contrib.auth.decorators import login_required
-#View for a list dispaly for the raised tickets
+from .forms import WorkNoteForm
 
 
-def Ticket_Display(request):
+def all_tickets(request):
+    # Show tickets in the selected statuses
     tickets = Ticket.objects.filter(
-        Ticket_Status__in=["NEW","In Progress","On Hold"]
+        Ticket_Status__in=["NEW", "CLOSED", "IN_PROGRESS", "ON_HOLD"]
     )
-    # tickets = Ticket.objects.all()
-    return render(request,'Ticket_Analysis/List_View.html',{"tickets":tickets})
 
-#view to update ticket, add notes, update the ticket status and resolution notes to a ticket
-def Tickets_Working(request):
-    tickets = Ticket.objects.exclude()
-    return render(request,'Ticket_Analysis/List_View.html',{"tickets":tickets})
+    return render(
+        request,
+        'Ticket_Analysis/List_View.html',
+        {'tickets': tickets}
+    )
 
-# this is where users should be able to work on the ticket and close/add notes to the ticket
 
-@login_required
-def Detailed_View(reqeust,ticket_number):
-    ticketDetails = Ticket.objects.get(Ticket,Ticket_Number = ticket_number)
-    working_Notes = Ticket.notes.all()
-    form = workingNotesForm()
+def detail_view(request, ticket_number):
+
+    # Retrieve the ticket using its ticket number
+    ticket_details = get_object_or_404(
+        Ticket,
+        Ticket_Number=ticket_number
+    )
+
+    # Retrieve all working notes associated with this ticket
+    notes = ticket_details.work_notes.all()
+
     if request.method == "POST":
-        form = workingNotesForm(request.POST)
+        form = WorkNoteForm(request.POST)
+
         if form.is_valid():
-            print(f"{form.cleaned_data['notes']} added by {form.cleaned_data['author']}")
-            form.save()
-        return render(reqeust,"Ticket_Analysis/Detail_View.html",{'form':form,'ticket':ticketDetails,'workingNotes':working_Notes})
-    return render(request,'Ticket_Analysis/Detail_View',{'form:':form,'ticket':ticketDetails,'workingNotes':working_Notes})
+
+            # Create an unsaved working-note object
+            working_note = form.save(commit=False)
+
+            # Associate the note with the current ticket
+            working_note.Ticket = ticket_details
+
+            # Save the working note
+            working_note.save()
+
+            # Refresh the notes displayed on the page
+            notes = ticket_details.work_notes.all()
+
+            # Show a fresh form after successful submission
+            form = WorkNoteForm()
+
+    else:
+        form = WorkNoteForm()
+    
+    return render(
+        request,
+        'Ticket_Analysis/Detailed_View.html',
+        {
+            'ticket': ticket_details,
+            'form': form,
+            'notes': notes
+        }
+    )

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ticket Details - {{ ticket.Ticket_Number }}</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 35px 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6fa;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* Header */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .ticket-number {
+            color: #2563eb;
+        }
+
+        /* Common cards */
+
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .section-title {
+            font-size: 19px;
+            margin: 0 0 22px;
+            color: #111827;
+        }
+
+        /* Ticket information */
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px 35px;
+        }
+
+        .detail-item {
+            min-width: 0;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 7px;
+        }
+
+        .detail-value {
+            font-size: 15px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+            color: #1f2937;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Description */
+
+        .description {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        /* Working notes */
+
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .note {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #2563eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .note-content {
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            margin: 0 0 12px;
+        }
+
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .empty-notes {
+            padding: 25px;
+            text-align: center;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 8px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Forms */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: 14px;
+            background: white;
+            outline: none;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 7px;
+            padding: 11px 19px;
+            background: #2563eb;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #334155;
+        }
+
+        /* Form errors */
+
+        .errorlist {
+            color: #dc2626;
+            font-size: 13px;
+            padding-left: 18px;
+        }
+
+        /* Responsive layout */
+
+        @media (max-width: 650px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .page-header h1 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    {% if ticket %}
+
+    <!-- Page heading -->
+
+    <div class="page-header">
+        <h1>
+            Ticket Details
+            <span class="ticket-number">{{ ticket.Ticket_Number }}</span>
+        </h1>
+    </div>
+
+    <!-- Ticket information -->
+
+    <div class="card">
+
+        <h2 class="section-title">Ticket Information</h2>
+
+        <div class="details-grid">
+
+            <div class="detail-item">
+                <span class="detail-label">Ticket Number</span>
+                <div class="detail-value">{{ ticket.Ticket_Number }}</div>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Status</span>
+                <div class="detail-value">
+                    <span class="status-badge">{{ ticket.Ticket_Status }}</span>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Category</span>
+                <div class="detail-value">{{ ticket.Issue_Category }}</div>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Contact</span>
+                <div class="detail-value">{{ ticket.User_Contact }}</div>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Short Description</span>
+                <div class="detail-value">{{ ticket.Short_Description }}</div>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Caller</span>
+                <div class="detail-value">{{ ticket.Raised_By }}</div>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Raised At</span>
+                <div class="detail-value">{{ ticket.Raised_At }}</div>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Complete Description</span>
+                <div class="detail-value description">{{ ticket.Complete_Description }}</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Working notes -->
+
+    <div class="card">
+
+        <h2 class="section-title">Working Notes</h2>
+
+        <div class="notes-list">
+
+            {% for i in notes %}
+
+                <div class="note">
+
+                    <p class="note-content">{{ i.note }}</p>
+
+                    <div class="note-meta">
+                        <span>Added by: {{ i.author }}</span>
+                        <span>{{ i.timeAddedAt|date:"d M Y, h:i A" }}</span>
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="empty-notes">
+                    No working notes have been added to this ticket yet.
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <!-- Add working notes -->
+
+    <div class="card">
+
+        <h2 class="section-title">Add Working Notes</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.errors %}
+                        {{ field.errors }}
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn">
+                Add Note
+            </button>
+
+        </form>
+
+    </div>
+
+    {% else %}
+
+        <div class="card">
+            <h2>Invalid Ticket</h2>
+            <p>The requested ticket could not be found.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

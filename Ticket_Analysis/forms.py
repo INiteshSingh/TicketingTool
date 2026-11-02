@@ -1,9 +1,8 @@
 from django import forms
-from Ticket_Creation.models import Ticket
-from Ticket_Analysis.models import workingNotes
+from Ticket_Analysis.models import Ticket
+from .models import WorkingNote
 
-class workingNotesForm(forms.ModelForm):
+class WorkNoteForm(forms.ModelForm):
     class Meta:
-        model = workingNotes
-        fields = ['notes','author']
-        
+        model = WorkingNote
+        fields = ["note","author"]

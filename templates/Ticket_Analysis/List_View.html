@@ -28,7 +28,6 @@
                 <tr>
                     {% if ticket.Ticket_Number %}
                 <th><a href="{% url 'detailed_view' ticket.Ticket_Number %}">{{ticket.Ticket_Number}}</a></th>
-                <!-- <th><a href="{% url 'detailed_view' ticket.Ticket_Number %}">{{ticket.Ticket_Number}}</a></th> -->
                 {% else %}
                 no ticket number
                 {% endif %}
