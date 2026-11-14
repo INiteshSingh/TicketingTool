@@ -1,6 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.db import transaction
+from django.shortcuts import render, get_object_or_404, redirect
+
 from Ticket_Creation.models import Ticket
-from .forms import WorkNoteForm
+from Ticket_Creation.forms import TicketForm
+from .forms import WorkNoteForm, ticketStatusUpdate
 
 
 def all_tickets(request):
@@ -11,51 +14,69 @@ def all_tickets(request):
 
     return render(
         request,
-        'Ticket_Analysis/List_View.html',
-        {'tickets': tickets}
+        "Ticket_Analysis/List_View.html",
+        {"tickets": tickets},
     )
 
 
 def detail_view(request, ticket_number):
 
-    # Retrieve the ticket using its ticket number
-    ticket_details = get_object_or_404(
-        Ticket,
-        Ticket_Number=ticket_number
-    )
-
-    # Retrieve all working notes associated with this ticket
-    notes = ticket_details.work_notes.all()
+    # Retrieve the ticket using its ticket number (404 if it doesn't exist)
+    ticket = get_object_or_404(Ticket, Ticket_Number=ticket_number)
 
     if request.method == "POST":
-        form = WorkNoteForm(request.POST)
+        # Both forms are submitted together with the single "Update" button.
+        # Prefixes keep their field names from clashing in one POST.
+        ticketUpdateForm = ticketStatusUpdate(
+            request.POST, instance=ticket, prefix="status"
+        )
+        form = WorkNoteForm(request.POST, prefix="note")
 
-        if form.is_valid():
+        # Save only if BOTH are valid, so we never end up with half an update
+        if ticketUpdateForm.is_valid() and form.is_valid():
+            with transaction.atomic():
+                ticketUpdateForm.save()
 
-            # Create an unsaved working-note object
-            working_note = form.save(commit=False)
+                # Save a note only if the user actually typed something
+                if form.has_changed():
+                    working_note = form.save(commit=False)
+                    working_note.Ticket = ticket
+                    working_note.save()
 
-            # Associate the note with the current ticket
-            working_note.Ticket = ticket_details
-
-            # Save the working note
-            working_note.save()
-
-            # Refresh the notes displayed on the page
-            notes = ticket_details.work_notes.all()
-
-            # Show a fresh form after successful submission
-            form = WorkNoteForm()
-
+            # Post/Redirect/Get: stops a browser refresh from re-submitting
+            return redirect(request.path)
     else:
-        form = WorkNoteForm()
-    
+        ticketUpdateForm = ticketStatusUpdate(instance=ticket, prefix="status")
+        form = WorkNoteForm(prefix="note")
+
+    # Fetched after any save so the list is always current
+    notes = ticket.work_notes.all()
+
     return render(
         request,
-        'Ticket_Analysis/Detailed_View.html',
+        "Ticket_Analysis/Detailed_View.html",
         {
-            'ticket': ticket_details,
-            'form': form,
-            'notes': notes
-        }
+            "ticket": ticket,
+            "form": form,
+            "notes": notes,
+            "ticketUpdateForm": ticketUpdateForm,
+        },
+    )
+
+
+def dynamic_details(request, ticket_number):
+    ticketDetails = get_object_or_404(Ticket, Ticket_Number=ticket_number)
+
+    if request.method == "POST":
+        form = TicketForm(request.POST, instance=ticketDetails)
+        if form.is_valid():
+            form.save()
+            return redirect(request.path)
+    else:
+        form = TicketForm(instance=ticketDetails)
+
+    return render(
+        request,
+        "Ticket_Analysis/DynamicDetails.html",
+        {"ticketDetails": ticketDetails, "form": form},
     )

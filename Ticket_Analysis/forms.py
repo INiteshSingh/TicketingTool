@@ -6,3 +6,8 @@ class WorkNoteForm(forms.ModelForm):
     class Meta:
         model = WorkingNote
         fields = ["note","author"]
+
+class ticketStatusUpdate(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ["Ticket_Status"]

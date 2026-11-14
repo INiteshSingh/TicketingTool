@@ -81,7 +81,8 @@ WSGI_APPLICATION = 'TicketingTool.wsgi.application'
 #CSRF Allowed Hosts
 CSRF_TRUSTED_ORIGINS = [
     "https://8080-cs-c1fb3a42-9580-47ca-8449-836c924594ea.cs-asia-southeast1-palm.cloudshell.dev",
-]
+    "https://8080-cs-174359702336-default.cs-asia-southeast1-cash.cloudshell.dev"
+    ]
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
