@@ -9,9 +9,9 @@ from .forms import WorkNoteForm, ticketStatusUpdate
 def all_tickets(request):
     # Show tickets in the selected statuses
     tickets = Ticket.objects.filter(
-        Ticket_Status__in=["NEW", "CLOSED", "IN_PROGRESS", "ON_HOLD"]
+        Ticket_Status__in=["New", "Closed", "In Progress", "On Hold"]
     )
-
+    # tickets = Ticket.objects.all()
     return render(
         request,
         "Ticket_Analysis/List_View.html",

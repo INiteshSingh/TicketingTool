@@ -10,19 +10,75 @@
     <link rel="stylesheet" href="{% static 'Ticket_Analysis/css/ticket_detail.css' %}">
 
     <style>
-        * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
-    padding: 35px 20px;
     font-family: Arial, Helvetica, sans-serif;
     background: #f4f6fa;
     color: #1f2937;
 }
 
-.container { max-width: 1100px; margin: auto; }
+/* ===== Page layout: sidebar + content ===== */
+.main {
+    display: flex;
+    min-height: 100vh;
+}
 
-/* Header */
+/* Sidebar */
+.links {
+    flex: 0 0 230px;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    padding: 28px 16px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.links-title {
+    margin: 0 0 14px;
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.link {
+    display: block;
+    padding: 11px 12px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.link:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.link.active {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* Content area */
+.container {
+    flex: 1;
+    min-width: 0;            /* lets the grid/notes shrink instead of overflowing */
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px 28px;
+}
+
+/* ===== Header ===== */
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -35,7 +91,7 @@ body {
 .page-header h1 { margin: 0; font-size: 26px; }
 .ticket-number { color: #2563eb; }
 
-/* Cards */
+/* ===== Cards ===== */
 .card {
     background: white;
     border: 1px solid #e5e7eb;
@@ -55,7 +111,7 @@ body {
     border-bottom: 1px solid #e5e7eb;
 }
 
-/* Ticket details */
+/* ===== Ticket details ===== */
 .details-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -94,7 +150,7 @@ body {
     font-weight: 700;
 }
 
-/* Update section (status + note) */
+/* ===== Update section (status + note) ===== */
 .update-section { margin-top: 28px; }
 
 .form-group { margin-bottom: 18px; }
@@ -149,7 +205,7 @@ textarea { min-height: 110px; resize: vertical; }
     margin: 6px 0 0;
 }
 
-/* Working notes */
+/* ===== Working notes ===== */
 .notes-list { display: flex; flex-direction: column; gap: 14px; }
 
 .note {
@@ -187,9 +243,28 @@ textarea { min-height: 110px; resize: vertical; }
     font-size: 14px;
 }
 
-/* Responsive */
+/* ===== Responsive ===== */
+@media (max-width: 800px) {
+    .main { flex-direction: column; }
+
+    .links {
+        flex: none;
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 14px 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .links-title { display: none; }
+    .link { margin-bottom: 0; }
+    .container { padding: 20px 12px; }
+}
+
 @media (max-width: 650px) {
-    body { padding: 20px 12px; }
     .details-grid { grid-template-columns: 1fr; gap: 18px; }
     .card { padding: 18px; }
     .page-header h1 { font-size: 21px; }
@@ -199,6 +274,13 @@ textarea { min-height: 110px; resize: vertical; }
 </head>
 
 <body>
+<div class="main">
+<nav class="links">
+    <h3 class="links-title">Menu</h3>
+    <a class="link" href="{% url 'list' %}">All Incidents</a>
+    <a class="link" href="#">My Requests</a>
+    <a class="link" href="#">Test</a>
+</nav>
 
 <div class="container">
 
@@ -332,6 +414,6 @@ textarea { min-height: 110px; resize: vertical; }
     {% endif %}
 
 </div>
-
+</div>
 </body>
 </html>
