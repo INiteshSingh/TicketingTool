@@ -11,6 +11,8 @@ from django.urls import reverse
 
 @login_required
 def home_page(request):
+    # user_details = reqeust.User
+    # print(user_details)
     return render(request,"Ticket_Creation/home.html")
 
 @login_required
@@ -54,6 +56,7 @@ def ticket_form(request):
 def ticket_raised(request,ticket_number):
     return render(request,"Ticket_Creation/ticket_raised.html",{"ticket_number":ticket_number})
 
+@login_required
 def ticket_status(request):
     if request.method == 'POST':
         form = ticket_status_form(request.POST)
@@ -67,4 +70,3 @@ def ticket_status(request):
     else:
         form = ticket_status_form()
     return render(request, 'Ticket_Creation/ticket_status.html', {'form': form})
-

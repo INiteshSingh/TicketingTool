@@ -3,7 +3,7 @@
 {% block title %}Create User{% endblock %}
 
 {% block content %}
-<form action="POST">
+<form method="POST">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit">Create</button>

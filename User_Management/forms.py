@@ -11,7 +11,7 @@ class User_Creation_form(forms.ModelForm):
         password = self.cleaned_data['password']
         name = self.cleaned_data['name']
 
-        user = user.objects.create_user(
+        user = User.objects.create_user(
             Employee_ID=Employee_ID,
             password=password,
             name=name
